@@ -1,0 +1,48 @@
+# Requires apexcharts-card from HACS. Keep graph_span in sync with the chart_days option.
+# Entity ids assume the integration was named "Steam wishlists".
+type: vertical-stack
+cards:
+  - type: grid
+    columns: 2
+    square: false
+    cards:
+      - type: tile
+        entity: sensor.steam_wishlists_total
+        name: Wishlists
+      - type: tile
+        entity: sensor.steam_wishlists_net
+        name: Last day
+      - type: tile
+        entity: sensor.steam_wishlists_net_7d
+        name: Last 7 days
+      - type: tile
+        entity: sensor.steam_wishlists_deletes
+        name: Deletes (last day)
+  - type: custom:apexcharts-card
+    header:
+      show: true
+      title: Wishlists
+      show_states: false
+    graph_span: 90d
+    span:
+      end: day
+    yaxis:
+      - id: total
+        decimals: 0
+      - id: net
+        opposite: true
+        decimals: 0
+    series:
+      - entity: sensor.steam_wishlists_total
+        name: Total
+        yaxis_id: total
+        type: line
+        stroke_width: 2
+        data_generator: |
+          return (entity.attributes.series || []).map(r => [new Date(r[0]).getTime(), r[1]]);
+      - entity: sensor.steam_wishlists_total
+        name: Daily net
+        yaxis_id: net
+        type: column
+        data_generator: |
+          return (entity.attributes.series || []).map(r => [new Date(r[0]).getTime(), r[2]]);

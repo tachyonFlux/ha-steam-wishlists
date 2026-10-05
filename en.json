@@ -1,0 +1,35 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Steam Wishlists",
+        "description": "Create a Financial API Group in Steamworks (Users & Permissions > Manage Groups) and use that group's Web API key.",
+        "data": {
+          "name": "Name",
+          "api_key": "Financial API key",
+          "appid": "App ID",
+          "start_date": "Start date (when the store page went live)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Steamworks rejected the key. Check that it belongs to a Financial API Group and that your IP is whitelisted.",
+      "cannot_connect": "Could not reach the Steamworks partner API.",
+      "unexpected_response": "Unexpected response from Steamworks."
+    },
+    "abort": {
+      "already_configured": "This app is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options",
+        "data": {
+          "poll_hours": "Hours between checks",
+          "chart_days": "Days of history for the chart"
+        }
+      }
+    }
+  }
+}
